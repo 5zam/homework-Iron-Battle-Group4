@@ -5,11 +5,10 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+
         Scanner scanner = new Scanner(System.in);
         //   System.out.print("Enter the CSV filename: ");
 //String filename = scanner.nextLine();
-
-
         //importCharactersFromCSV(filename);
 
         if (true) {
@@ -91,6 +90,7 @@ public class Main {
                 }
             }
         }
+
     }
 
 
