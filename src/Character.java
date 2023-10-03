@@ -5,5 +5,16 @@ public abstract class  Character {
     public Character(String name, int hp) {
     }
 
-    public abstract String getInfo();
+    protected int getHp() {
+        return hp;
+    }
+
+    protected void setHp(int i) {
+
+    }
+
+    public String getName() {
+        return name;
+    }
+    //public abstract String attack();
 }

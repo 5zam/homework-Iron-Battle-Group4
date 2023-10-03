@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Warrior extends Character{
     private int stamina;
     private int strength;
@@ -27,8 +29,29 @@ public class Warrior extends Character{
         this.strength = strength;
     }
 
-    @Override
-    public String getInfo() {
-        return null;
+
+    public void attack(Character character) {
+        if(stamina>0){
+            Random r= new Random();
+            int damage = r.nextInt(strength)+1;
+            int hp= character.getHp();
+            character.setHp(hp- damage);
+            stamina -= 5;
+            System.out.println(getName() + " attack with heavy attack and causing "+ damage+" damage ");
+            System.out.println(getName() + "stamina: "+ stamina);
+        }
+        else {
+            weekAttack(character);
+        }
+    }
+
+    private void weekAttack(Character character) {
+        int damage = strength/2;
+        int hp= character.getHp();
+        character.setHp(hp-damage);
+        stamina +=1;
+        System.out.println(getName() + " attack with heavy attack and causing "+ damage + " damage");
+
+        System.out.println("pall work");
     }
 }
