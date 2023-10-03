@@ -5,6 +5,10 @@ public abstract class  Character {
     public Character(String name, int hp) {
     }
 
+    public Character() {
+
+    }
+
     protected int getHp() {
         return hp;
     }
