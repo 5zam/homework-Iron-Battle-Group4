@@ -20,5 +20,8 @@ public abstract class  Character {
     public String getName() {
         return name;
     }
+
+    public boolean isAlive() { return true;
+    }
     //public abstract String attack();
 }
