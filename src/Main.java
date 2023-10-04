@@ -1,23 +1,33 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+
+import javax.swing.*;
+
 public class Main {
+
+    private static List<Character> characterList = new ArrayList<>();
     public static void main(String[] args) {
+
+
         Scanner scanner = new Scanner(System.in);
-        //   System.out.print("Enter the CSV filename: ");
-//String filename = scanner.nextLine();
+        System.out.println("Enter the CVS:");
+        String filename = scanner.nextLine();
+        importCharactersFromCSV("characters.csv");
+        //if (!filename.equalsIgnoreCase("skip")) {
+        //importCharactersFromCSV("characters.csv");}
 
-
-        //importCharactersFromCSV(filename);
 
         if (true) {
             // Display menu options
             System.out.println("\n1. Create Warrior");
             System.out.println("2. Create Wizard");
             System.out.println("3. Start Battle");
-            //System.out.println("4. Import Characters from CSV");
+            System.out.println("4. Import Characters from CSV");
             System.out.println("4. Simulate Battle with Random Characters ");
             System.out.println("0. Exit");
 
@@ -25,20 +35,18 @@ public class Main {
             System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
             switch (choice) {
+
                 case 1:
-                    createWarrior();
-                    break;
                 case 2:
-                    createWizard();
-                    break;
                 case 3:
+                    createWarrior();
+                    createWizard();
                     startBattle();
                     break;
-                // case 4:
-
-                //  importCharactersFromCSV(filename);
-                //  break;
                 case 4:
+                    importCharactersFromCSV(filename);
+                    break;
+                case 5:
                     simulateRandomBattle();
                     break;
                 case 0:
@@ -48,55 +56,12 @@ public class Main {
                     System.out.println("Invalid choice. Please try again.");
             }
 
-
-
-
-
-            Random random = new Random();
-            int randomNumberwa = random.nextInt(200 - 100) + 100;
-            int randomNumberwawi = random.nextInt(100 - 50) + 50;
-            // System.out.println("Random Number: " + randomNumberwa);
-            // System.out.println("Random Number: " + randomNumberwawi);
-            Warrior warrior1 = new Warrior("warrior",randomNumberwa,6,5);
-            Wizard wizard1 = new Wizard("Wizard",randomNumberwawi, 6, 5);
-
-            // Battle simulation
-            while (warrior1.isAlive() && wizard1.isAlive()) {
-                warrior1.attack(wizard1);
-                wizard1.attack(warrior1);
-                System.out.println("Warrior HP: " + warrior1.getHp() +
-                        " | Wizard HP: " + wizard1.getHp());
-
-                if (warrior1.getHp() >= 0 || wizard1.getHp() >= 0) {}
-                //break;
-
-            }
-
-
-            // Display the winner
-            if (warrior1.isAlive() && !wizard1.isAlive()) {
-                System.out.println("Warrior wins!");
-            }
-            else if (!warrior1.isAlive() && wizard1.isAlive()) {
-                System.out.println("Wizard wins!");
-            }
-            else {
-                // Check if the wizard's health is strictly greater than the warrior's health
-                if (wizard1.getHp() > warrior1.getHp()) {
-                    System.out.println("Wizard wins!");
-                } else if (wizard1.getHp() < warrior1.getHp()) {
-                    System.out.println("Warrior wins!");
-                } else {
-                    System.out.println("It's a tie!");
-                }
-            }
         }
     }
 
 
-
-    private static void simulateRandomBattle()
-    { int warriorStamina = generateRandomNumber(10, 50);
+    private static void simulateRandomBattle () {
+        int warriorStamina = generateRandomNumber(10, 50);
         int warriorStrength = generateRandomNumber(1, 10);
         Warrior warrior = new Warrior("RandomWarrior",
                 generateRandomNumber(100, 200), warriorStamina, warriorStrength);
@@ -124,12 +89,12 @@ public class Main {
         }
     }
 
-    private static int generateRandomNumber(int i, int i1){
+    private static int generateRandomNumber ( int i, int i1){
         Random random = new Random();
         return random.nextInt(i1 - i + 1) + i;
     }
 
-    private static void startBattle() {
+    private static void startBattle () {
         // Create a warrior
         Warrior warrior = createWarrior();
 
@@ -141,7 +106,8 @@ public class Main {
             warrior.attack(wizard);
             wizard.attack(warrior);
 
-            System.out.println("Warrior HP: " + warrior.getHp() + " | Wizard HP: " + wizard.getHp());
+            System.out.println("Warrior HP: " + warrior.getHp()
+                    + " | Wizard HP: " + wizard.getHp());
         }
 
         if (warrior.isAlive()) {
@@ -153,7 +119,7 @@ public class Main {
         }
     }
 
-    private static Wizard createWizard() {
+    private static Wizard createWizard () {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Enter the name of the wizard: ");
@@ -168,9 +134,10 @@ public class Main {
         System.out.println("Enter the intelligence of the wizard (between 1 and 50): ");
         int intelligence = getUserInputInRange(1, 50);
 
-        return new Wizard(name, hp, mana, intelligence); }
+        return new Wizard(name, hp, mana, intelligence);
+    }
 
-    private static Warrior createWarrior() {
+    private static Warrior createWarrior () {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Enter the name of the warrior: ");
@@ -185,9 +152,10 @@ public class Main {
         System.out.println("Enter the strength of the warrior (between 1 and 10): ");
         int strength = getUserInputInRange(1, 10);
 
-        return new Warrior(name, hp, stamina, strength);}
+        return new Warrior(name, hp, stamina, strength);
+    }
 
-    private static int getUserInputInRange(int min, int max) {
+    private static int getUserInputInRange ( int min, int max){
         Scanner scanner = new Scanner(System.in);
         int userInput;
 
@@ -196,7 +164,8 @@ public class Main {
                 userInput = Integer.parseInt(scanner.nextLine());
                 if (userInput >= min && userInput <= max) {
                     break;
-                } else { System.out.println("Invalid input. Please enter a number within the specified range.");
+                } else {
+                    System.out.println("Invalid input. Please enter a number within the specified range.");
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Invalid input. Please enter a valid number.");
@@ -206,15 +175,13 @@ public class Main {
         return userInput;
     }
 
-    /* private static void importCharactersFromCSV(String filename) {
-
-        //System.out.println("Importing characters from file: " + filename);
+    private static void importCharactersFromCSV(String s) {
         try {
-            Scanner scanner = new Scanner(new File(filename));
+            Scanner scanner = new Scanner(new File(s));
 
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                String[] fields = line.split(" __");
+                String[] fields = line.split(",");
 
                 if (fields.length >= 5) {
                     String type = fields[0];
@@ -236,5 +203,6 @@ public class Main {
             scanner.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }*/
+        }
+    }
 }
